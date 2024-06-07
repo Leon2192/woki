@@ -1,39 +1,36 @@
 import React from "react";
 import { useGetMoviesQuery } from "@/redux/services/movieApi";
 import Link from "next/link";
+import MovieCard from "../ui/MovieCard";
 
 const AllMovies = () => {
   const { data, error, isLoading } = useGetMoviesQuery();
 
   return (
     <div>
-      <h2>All Movies</h2>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error fetching data</p>}
-      {data && (
-        <ul>
-          {data.results.map((movie) => (
-            <li key={movie.id}>
-              <Link href={`/movie/${movie.id}`}>
-                <h3 className="text-red-800">{movie.title}</h3>
-              </Link>
-              <p>Release Date: {movie.release_date}</p>
-              <p>Rating: {movie.vote_average}</p>
-              <p>Overview: {movie.overview}</p>
-              <p>
-                Genres:{" "}
-                {movie.genres ? (
-                  movie.genres.map((genre) => (
-                    <span key={genre.id}>{genre.name}, </span>
-                  ))
-                ) : (
-                  <span>No genres available</span>
-                )}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h2 className="text-3xl font-bold p-2">MOVIES</h2>
+      <div style={{ display: "flex", flexWrap: "wrap" }}> 
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error fetching data</p>}
+        {data && data.results.map((movie) => ( 
+          <div key={movie.id} style={{ margin: "10px", flex: "1 1 300px" }}> 
+            <div
+              onClick={() => {
+                window.location.href = `/movie/${movie.id}`;
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <MovieCard 
+                movie={movie}
+                button1Text="Share"
+                button1Action={() => {}}
+                button2Text="Learn More"
+                button2Action={() => {}}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

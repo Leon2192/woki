@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useGetMovieByIdQuery } from "../../../redux/services/movieApi";
 import MovieDetail from "../../../components/shared/MovieDetail";
 import { useParams } from "next/navigation";
+import SimilarMovies from "@/components/shared/SimilarMovies";
 
 export default function ProductPage() {
   const [movie, setMovie] = useState(null);
@@ -34,6 +35,7 @@ export default function ProductPage() {
   return (
     <div>
       <MovieDetail movie={movie} />
+      <SimilarMovies  movieId={id}/>
     </div>
   );
 }

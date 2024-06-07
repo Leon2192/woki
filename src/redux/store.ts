@@ -1,13 +1,14 @@
-// src/app/store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice"; 
-import { userApi } from "./services/userApi"; 
-import { movieApi } from "./services/movieApi"; 
+import { userApi } from "./services/userApi";
+import { movieApi } from "./services/movieApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import counterReducer from "./features/counterSlice"; 
+import slideReducer from "./features/sliderSlice"; 
 
 export const store = configureStore({
   reducer: {
-    counterReducer,
+    counter: counterReducer, 
+    slider: slideReducer, 
     [userApi.reducerPath]: userApi.reducer,
     [movieApi.reducerPath]: movieApi.reducer,
   },
