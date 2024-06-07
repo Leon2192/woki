@@ -1,22 +1,31 @@
-import { nextSlide, prevSlide } from "@/redux/features/sliderSlice";
-import { useGetMoviesQuery } from "@/redux/services/movieApi";
-import { RootState } from "@/redux/store";
-import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { nextSlide, prevSlide } from "@/redux/features/sliderSlice";
+import Image from "next/image";
+import { getPopularMovies } from "@/redux/services/movieApi";
 
 const MovieSlider = () => {
-  const { data, error, isLoading } = useGetMoviesQuery();
+  const [movies, setMovies] = useState([]);
   const slideIndex = useSelector((state: RootState) => state.slider.value);
   const dispatch = useDispatch();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching data</p>;
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await getPopularMovies();
+        setMovies(response.results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
   return (
     <div className="relative w-full overflow-hidden">
       <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${slideIndex * 100}%)` }}>
-        {data && data.results.slice(0, 3).map((movie, index) => (
+        {movies.slice(0, 3).map((movie: any, index: number) => (
           <div
             key={index}
             className="w-full flex items-center justify-center"
