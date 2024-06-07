@@ -3,7 +3,7 @@ import Image from "next/image";
 import { TMovie } from "@/types/TMovie"; 
 
 interface Props {
-  movie: TMovie;
+  movie: TMovie | null;
 }
 
 const MovieDetail: React.FC<Props> = ({ movie }) => {
