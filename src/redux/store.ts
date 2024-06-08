@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice"; 
 import slideReducer from "./features/sliderSlice"; 
+import movieReducer from "./features/movieSlice"; 
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer, 
+  reducer: { 
     slider: slideReducer,
+    movie: movieReducer,
   },
 });
 

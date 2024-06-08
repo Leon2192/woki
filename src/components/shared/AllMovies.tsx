@@ -1,51 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectPopularMovies, selectLoading, selectError, setPopularMovies, setLoading, setError } from "@/redux/features/movieSlice";
 import { getPopularMovies } from "@/redux/services/movieApi";
 import MovieCard from "../ui/MovieCard";
 import { TMovie } from "@/types/TMovie";
+import Link from 'next/link'; // Importa el componente Link
 
 const AllMovies = () => {
-  const [movies, setMovies] = useState<TMovie[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); 
+  const popularMovies = useSelector(selectPopularMovies);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovies = async () => {
+      dispatch(setLoading(true));
       try {
-        const popularMovies = await getPopularMovies();
-        setMovies(popularMovies.results);
-        setIsLoading(false);
+        const popularMoviesResponse = await getPopularMovies();
+        dispatch(setPopularMovies(popularMoviesResponse.results));
       } catch (error) {
-        console.error(error);
-        setError("Error fetching data");
-        setIsLoading(false);
+        dispatch(setError("Error fetching data"));
       }
     };
 
     fetchMovies();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       <h2 className="text-3xl font-bold p-2">MOVIES</h2>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {isLoading && <p>Loading...</p>}
+        {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {movies.map((movie) => (
+        {popularMovies.map((movie: TMovie) => (
           <div key={movie.id} style={{ margin: "10px", flex: "1 1 300px" }}>
-            <div
-              onClick={() => {
-                window.location.href = `/movie/${movie.id}`;
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <MovieCard
-                movie={movie}
-                button1Text="Share"
-                button1Action={() => {}}
-                button2Text="Learn More"
-                button2Action={() => {}}
-              />
-            </div>
+            <Link href={`/movie/${movie.id}`} passHref>
+              <div style={{ cursor: "pointer" }}>
+                <MovieCard
+                  movie={movie}
+                  button1Text="Share"
+                  button1Action={() => {}}
+                  button2Text="Learn More"
+                  button2Action={() => {}}
+                />
+              </div>
+            </Link>
           </div>
         ))}
       </div>

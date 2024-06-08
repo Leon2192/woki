@@ -23,7 +23,7 @@ const MovieCard: React.FC<IMediaCard> = ({
     <Card sx={{ display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="img"
-        sx={{ flex: '1 1 auto', objectFit: 'cover', height: 400 }} 
+        sx={{ flex: '1 1 auto', objectFit: 'cover', height: 300 }} 
         image={posterPath} 
         title={movie.title}
       />

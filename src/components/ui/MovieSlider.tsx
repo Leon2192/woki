@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { nextSlide, prevSlide } from "@/redux/features/sliderSlice";
 import Image from "next/image";
 import { getPopularMovies } from "@/redux/services/movieApi";
+import { RootState } from "@/redux/store";
+import Link from "next/link"; 
+import Sidebar from "../shared/Sidebar";
 
 const MovieSlider = () => {
   const [movies, setMovies] = useState([]);
@@ -23,13 +26,15 @@ const MovieSlider = () => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
-      <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${slideIndex * 100}%)` }}>
-        {movies.slice(0, 3).map((movie: any, index: number) => (
+   <>
+   <Sidebar />
+   <div className="relative w-full overflow-hidden">
+      <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${slideIndex * 100}%)` }}> 
+        {movies.slice(0, 3).map((movie: any, index: number) => ( 
           <div
             key={index}
             className="w-full flex items-center justify-center"
-            style={{ flex: '0 0 100%', height: '60vh' }} 
+            style={{ flex: '0 0 100%', height: '70vh' }} 
           >
             <div className="relative w-full">
               <Image
@@ -42,11 +47,9 @@ const MovieSlider = () => {
               <div className="absolute inset-0 flex flex-col justify-center items-start bg-black bg-opacity-50 p-4">
                 <h2 className="text-white text-4xl font-bold mb-2">{movie.title}</h2>
                 <h2 className="text-white text-xl font-bold mb-2 w-3/4">{movie.overview}</h2>
-                <button
-                  onClick={() => {
-                    window.location.href = `/movie/${movie.id}`;
-                  }}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">More details</button>
+                <Link href={`/movie/${movie.id}`} passHref> {/* Utiliza el componente Link para el enrutamiento */}
+                  <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">More details</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -69,6 +72,7 @@ const MovieSlider = () => {
         </svg>
       </button>
     </div>
+   </>
   );
 };
 

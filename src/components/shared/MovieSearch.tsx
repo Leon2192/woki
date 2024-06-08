@@ -1,73 +1,77 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import MovieCard from "../ui/MovieCard";
+// SearchMovies.tsx
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectSearchResults,
+  selectLoading,
+  selectError,
+  setSearchResults,
+  setLoading,
+  setError,
+} from "@/redux/features/movieSlice";
+import { getMovieSearch } from "@/redux/services/movieApi";
 import { TMovie } from "@/types/TMovie";
+import Input from "../ui/Input";
 
 const SearchMovies = () => {
   const [query, setQuery] = useState<string>("");
-  const [movies, setMovies] = useState<TMovie[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const searchResults = useSelector(selectSearchResults);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const searchMovies = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get<{ results: TMovie[] }>( // Utilizamos TMovie como tipo de datos de la respuesta
-          `https://api.themoviedb.org/3/search/movie?api_key=a4887e558ee094c0d1b4810d5ae13237&query=${query}`
-        );
-        setMovies(response.data.results);
-        setIsLoading(false);
-        setError(null); // Restablecemos el error si la solicitud es exitosa
-      } catch (error) {
-        console.error(error);
-        setError("Error fetching data");
-        setIsLoading(false);
-      }
-    };
-
-    if (query) {
-      searchMovies();
-    } else {
-      setMovies([]);
-      setError(null);
+  const handleSearch = async (query: string) => {
+    if (query.trim() === "") {
+      return;
     }
-  }, [query]);
+    try {
+      dispatch(setLoading(true));
+      const response = await getMovieSearch(query);
+      dispatch(setSearchResults(response.results));
+      dispatch(setLoading(false));
+    } catch (error) {
+      dispatch(setError("Error fetching data"));
+      dispatch(setLoading(false));
+    }
+  };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setQuery(e.currentTarget.search.value);
+  const fetchOptions = async () => {
+    if (query.trim() === "") {
+      return [];
+    }
+    try {
+      const response = await getMovieSearch(query);
+      return response.results.map((movie: TMovie) => ({
+        title: movie.title,
+        posterPath: movie.poster_path, 
+        id: movie.id,
+      }));
+    } catch (error) {
+      console.error("Error fetching data", error);
+      return [];
+    }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
-        <input type="text" name="search" placeholder="Search movies..." />
-        <button type="submit">Search</button>
+    <div onClick={(e) => e.stopPropagation()}> 
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch(query);
+        }}
+      >
+        <Input
+          id="search-movies-autocomplete"
+          label="Let's find your movie!"
+          fetchOptions={fetchOptions}
+          disableClearable
+          type="search"
+          onChange={(value) => setQuery(value)}
+        />
       </form>
-      {isLoading && <p>Loading...</p>}
+      {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {movies.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              style={{ margin: "10px", flex: "1 1 300px", cursor: "pointer" }}
-              onClick={() => {
-                window.location.href = `/movie/${movie.id}`;
-              }}
-            >
-              <MovieCard
-                movie={movie}
-                button1Text="Button 1 Text"
-                button1Action={() => {}}
-                button2Text="Button 2 Text"
-                button2Action={() => {}}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      
     </div>
   );
 };

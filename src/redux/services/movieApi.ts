@@ -1,3 +1,4 @@
+// movieService.ts
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3/";
@@ -16,7 +17,7 @@ export const getPopularMovies = async () => {
   }
 };
 
-export const searchMovies = async (query: string) => {
+export const getMovieSearch = async (query: string) => {
   try {
     const response = await axios.get("search/movie", {
       params: {

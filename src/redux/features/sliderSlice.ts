@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useGetMoviesQuery } from '@/redux/services/movieApi';
 
 export const sliderSlice = createSlice({
     name: 'slider',
