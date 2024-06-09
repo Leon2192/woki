@@ -1,25 +1,22 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, googleProvider } from "@/lib/firebase/firebaseConfig";
 
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  username: string;
+export const authService = {
+  signInWithGoogle: async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return result.user;
+    } catch (error:any) {
+      console.error("Error al iniciar sesión con Google:", error.message);
+      throw error;
+    }
+  },
+  signOut: async () => {
+    try {
+      await signOut(auth);
+    } catch (error:any) {
+      console.error("Error al cerrar sesión:", error.message);
+      throw error;
+    }
+  },
 };
-
-export const userApi = createApi({
-  reducerPath: "userAPI",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
-  }),
-  endpoints: (builder) => ({
-    getUsers: builder.query<User[], null>({
-      query: () => "users", // https://domain.com/users
-    }),
-    getUserById: builder.query<User, { id: string }>({
-      query: ({ id }) => `users/${id}`, // https://domain.com/users
-    }),
-  }),
-});
-
-export const { useGetUsersQuery, useGetUserByIdQuery } = userApi;

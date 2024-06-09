@@ -6,6 +6,7 @@ import { getPopularMovies } from "@/redux/services/movieApi";
 import { RootState } from "@/redux/store";
 import Link from "next/link"; 
 import Sidebar from "../shared/Sidebar";
+import IconButton from "./IconButton";
 
 const MovieSlider = () => {
   const [movies, setMovies] = useState([]);
@@ -47,9 +48,27 @@ const MovieSlider = () => {
               <div className="absolute inset-0 flex flex-col justify-center items-start bg-black bg-opacity-50 p-4">
                 <h2 className="text-white text-4xl font-bold mb-2">{movie.title}</h2>
                 <h2 className="text-white text-xl font-bold mb-2 w-3/4">{movie.overview}</h2>
-                <Link href={`/movie/${movie.id}`} passHref> {/* Utiliza el componente Link para el enrutamiento */}
-                  <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">More details</button>
+                <div className="flex justify-around">
+                <Link href={`/movie/${movie.id}`} passHref>
+                <IconButton 
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                    </svg>
+                    } 
+                    text='More info' 
+          />
                 </Link>
+
+                <IconButton 
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                    </svg>
+                      } 
+                     text='View trailer' 
+                      />
+                </div>
               </div>
             </div>
           </div>

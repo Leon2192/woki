@@ -30,3 +30,15 @@ export interface IMediaCard {
     type?: string;
     onChange: (value: string) => void;
   }
+
+
+export interface IUser {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+}
+
+export interface IButton {
+  icon: React.ReactNode;
+  className?: string;
+}

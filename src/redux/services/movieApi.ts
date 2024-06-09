@@ -1,61 +1,53 @@
-// movieService.ts
 import axios from "axios";
 
-const baseURL = "https://api.themoviedb.org/3/";
+const baseURL = process.env.NEXT_PUBLIC_API_DOMAIN;
+
+const fetchDataWithCache = async (url: string, cacheKey: string) => {
+  const cachedData = localStorage.getItem(cacheKey);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  } else {
+    try {
+      const response = await axios.get(url, {
+        params: {
+          api_key: process.env.NEXT_PUBLIC_API_TOKEN,
+        },
+        baseURL,
+      });
+      localStorage.setItem(cacheKey, JSON.stringify(response.data));
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error}`);
+    }
+  }
+};
 
 export const getPopularMovies = async () => {
-  try {
-    const response = await axios.get("movie/popular", {
-      params: {
-        api_key: "a4887e558ee094c0d1b4810d5ae13237",
-      },
-      baseURL,
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error("Error fetching popular movies");
-  }
+  const cacheKey = "popularMovies";
+  return await fetchDataWithCache("movie/popular", cacheKey);
 };
 
 export const getMovieSearch = async (query: string) => {
-  try {
-    const response = await axios.get("search/movie", {
-      params: {
-        api_key: "a4887e558ee094c0d1b4810d5ae13237",
-        query,
-      },
-      baseURL,
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error("Error searching movies");
-  }
+  const cacheKey = `searchMovies_${query}`;
+  return await fetchDataWithCache("search/movie", cacheKey);
 };
 
 export const getMovieById = async (id: number) => {
-  try {
-    const response = await axios.get(`movie/${id}`, {
-      params: {
-        api_key: "a4887e558ee094c0d1b4810d5ae13237",
-      },
-      baseURL,
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error("Error fetching movie by ID");
-  }
+  const cacheKey = `movieById_${id}`;
+  return await fetchDataWithCache(`movie/${id}`, cacheKey);
 };
 
 export const getSimilarMovies = async (id: number) => {
-  try {
-    const response = await axios.get(`movie/${id}/similar`, {
-      params: {
-        api_key: "a4887e558ee094c0d1b4810d5ae13237",
-      },
-      baseURL,
-    });
-    return response.data;
-  } catch (error) {
-    throw new Error("Error fetching similar movies");
-  }
+  const cacheKey = `similarMovies_${id}`;
+  return await fetchDataWithCache(`movie/${id}/similar`, cacheKey);
+};
+
+export const getMoviesByGenre = async (genreId: number) => {
+  const cacheKey = `moviesByGenre_${genreId}`;
+  return await fetchDataWithCache("discover/movie", cacheKey);
+};
+
+export const getMovieGenres = async () => {
+  const cacheKey = "movieGenres";
+  return await fetchDataWithCache("genre/movie/list", cacheKey);
 };

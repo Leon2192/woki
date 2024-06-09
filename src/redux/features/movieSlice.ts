@@ -6,18 +6,20 @@ interface MovieState {
   similarMovies: TMovie[];
   popularMovies: TMovie[];
   searchResults: TMovie[];
+  genreResults: TMovie[];
   loading: boolean;
   error: string | null;
-  movieById: { [key: number]: TMovie }; // Añadimos una nueva propiedad para almacenar películas por ID
+  movieById: { [key: number]: TMovie };
 }
 
 const initialState: MovieState = {
   similarMovies: [],
   popularMovies: [],
   searchResults: [],
+  genreResults: [],
   loading: true,
   error: null,
-  movieById: {}, // Inicializamos movieById como un objeto vacío
+  movieById: {},
 };
 
 const movieSlice = createSlice({
@@ -39,6 +41,11 @@ const movieSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+    setGenreResults(state, action: PayloadAction<TMovie[]>) {
+      state.genreResults = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
@@ -46,20 +53,29 @@ const movieSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    setMovieById(state, action: PayloadAction<{ id: number; movie: TMovie }>) { // Agregamos un nuevo case para actualizar una película por ID
+    setMovieById(state, action: PayloadAction<{ id: number; movie: TMovie }>) {
       const { id, movie } = action.payload;
       state.movieById[id] = movie;
     },
   },
 });
 
-export const { setSimilarMovies, setPopularMovies, setSearchResults, setLoading, setError, setMovieById } = movieSlice.actions;
+export const {
+  setSimilarMovies,
+  setPopularMovies,
+  setSearchResults,
+  setGenreResults,
+  setLoading,
+  setError,
+  setMovieById
+} = movieSlice.actions;
 
 export const selectSimilarMovies = (state: RootState) => state.movie.similarMovies;
 export const selectPopularMovies = (state: RootState) => state.movie.popularMovies;
 export const selectSearchResults = (state: RootState) => state.movie.searchResults;
+export const selectGenreResults = (state: RootState) => state.movie.genreResults;
 export const selectLoading = (state: RootState) => state.movie.loading;
 export const selectError = (state: RootState) => state.movie.error;
-export const selectMovieById = (id: number) => (state: RootState) => state.movie.movieById[id]; // Definimos selectMovieById para seleccionar una película por ID
+export const selectMovieById = (id: number) => (state: RootState) => state.movie.movieById[id];
 
 export default movieSlice.reducer;

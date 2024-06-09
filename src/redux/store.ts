@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import slideReducer from "./features/sliderSlice"; 
+import sliderReducer from "./features/sliderSlice"; 
 import movieReducer from "./features/movieSlice"; 
+import authReducer from "./features/authSlice"; 
+import themeReducer from './features/themeSlice'
 
 export const store = configureStore({
   reducer: { 
-    slider: slideReducer,
+    slider: sliderReducer,
     movie: movieReducer,
+    auth: authReducer,
+    theme: themeReducer
   },
 });
 
