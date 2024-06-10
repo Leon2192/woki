@@ -93,7 +93,7 @@ export default function Sidebar() {
                     </svg>
                 </Box>
                 <Typography variant="subtitle1" className='text-white'>
-                  Hi {user.displayName}
+                  Hi {user.email}
                 </Typography>
               </Box>
             )}
