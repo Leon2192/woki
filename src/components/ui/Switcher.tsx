@@ -58,7 +58,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export default function Switcher() {
 
     const dispatch = useDispatch();
-    const currentThemeMode = useSelector((state):RootState => state.theme.mode);
+    const currentThemeMode = useSelector((state: RootState) => state.theme.mode);
   
     const handleToggleTheme = () => {
       dispatch(toggleTheme());
@@ -68,7 +68,7 @@ export default function Switcher() {
     <FormGroup>
       <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onClick={handleToggleTheme} />}
-      //  label={currentThemeMode === "light" ? "Dark" : "Light"}
+        label={currentThemeMode === "light" ? "Dark" : "Light"}
       />
     </FormGroup>
   );
