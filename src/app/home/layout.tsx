@@ -1,27 +1,21 @@
-'use client'
+"use client";
 
-import  { SnackbarProvider } from 'notistack'
+import { SnackbarProvider } from "notistack";
 
-
-export default function RootLayout(
-    {
-        children,
-      }: Readonly<{
-        children: React.ReactNode;
-      }>
-) {
- 
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-  
-    <SnackbarProvider 
-    maxSnack={3}
+    <SnackbarProvider
+      maxSnack={3}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
     >
       {children}
     </SnackbarProvider>
-    
   );
 }

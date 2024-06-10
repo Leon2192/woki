@@ -53,7 +53,7 @@ const MovieSlider = () => {
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="relative w-full h-screen overflow-hidden">
         <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${slideIndex * 100}%)` }}> 
           {movies.slice(0, 3).map((movie, index) => ( 

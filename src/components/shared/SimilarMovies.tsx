@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSimilarMovies, selectLoading, selectError, setSimilarMovies, setLoading, setError } from "@/redux/features/movieSlice";
+import {
+  selectSimilarMovies,
+  selectLoading,
+  selectError,
+  setSimilarMovies,
+  setLoading,
+  setError,
+} from "@/redux/features/movieSlice";
 import { TMovie } from "@/types/TMovie";
 import { getSimilarMovies } from "@/redux/services/movieApi";
 import MovieCard from "@/components/ui/MovieCard";
-import Link from "next/link"; 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const similarMovies = useSelector(selectSimilarMovies);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSimilarMovies = async () => {
@@ -37,14 +46,20 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
         {similarMovies.map((movie: TMovie) => (
           <div
             key={movie.id}
-            style={{ margin: "10px", flex: "1 1 300px", display: "flex", flexDirection: "column", alignItems: "center" }}
+            style={{
+              margin: "10px",
+              flex: "1 1 300px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
             <Link href={`/movie/${movie.id}`} passHref>
               <div>
                 <MovieCard
                   movie={movie}
                   button1Text="Button 1 Text"
-                  button1Action={() => {}}
+                  button1Action={() => router.push(`/movie/${movie.id}`)}
                   button2Text="Button 2 Text"
                   button2Action={() => {}}
                 />

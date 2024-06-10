@@ -261,10 +261,8 @@ const LoginPage = () => {
             sx={{ marginTop: "1rem", cursor: "pointer" }}
             onClick={() => setShowRegisterButton(!showRegisterButton)}
           >
-            ¿No tienes una cuenta aún?{" "}
-            <MuiLink color="inherit" sx={{ fontWeight: "bold" }}>
-              Regístrate
-            </MuiLink>
+            {showRegisterButton ? "¿No tienes una cuenta aún? Registrate" : "Ya tienes una cuenta? Inicia sesion"}
+            
           </Typography>
         </Box>
       </Box>

@@ -26,7 +26,7 @@ const SearchMovies = () => {
     try {
       dispatch(setLoading(true));
       const response = await getMovieSearch(query);
-      console.log("Search response:", response); 
+      console.log("Search response:", response);
       dispatch(setSearchResults(response.results));
       dispatch(setLoading(false));
     } catch (error) {
@@ -35,7 +35,6 @@ const SearchMovies = () => {
       dispatch(setLoading(false));
     }
   };
-  
 
   const fetchOptions = async () => {
     if (query.trim() === "") {
@@ -45,7 +44,7 @@ const SearchMovies = () => {
       const response = await getMovieSearch(query);
       const options = response.results.map((movie: TMovie) => ({
         title: movie.title,
-        posterPath: movie.poster_path, 
+        posterPath: movie.poster_path,
         id: movie.id,
       }));
       console.log(options);
@@ -55,11 +54,9 @@ const SearchMovies = () => {
       return [];
     }
   };
-  
-  
 
   return (
-    <div onClick={(e) => e.stopPropagation()}> 
+    <div onClick={(e) => e.stopPropagation()}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,7 +74,6 @@ const SearchMovies = () => {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      
     </div>
   );
 };
