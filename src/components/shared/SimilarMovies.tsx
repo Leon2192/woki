@@ -54,7 +54,6 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
               alignItems: "center",
             }}
           >
-            <Link href={`/movie/${movie.id}`} passHref>
               <div>
                 <MovieCard
                   movie={movie}
@@ -64,7 +63,6 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
                   button2Action={() => {}}
                 />
               </div>
-            </Link>
           </div>
         ))}
       </div>
