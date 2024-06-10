@@ -1,5 +1,6 @@
-// Layout.js
+"use client"
 import React from 'react';
+import  { SnackbarProvider } from 'notistack'
 
 const Layout = ({
     children,
@@ -7,6 +8,13 @@ const Layout = ({
     children: React.ReactNode;
   }>) => {
   return (
+    <SnackbarProvider
+    maxSnack={3}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+    >
     <div
       style={{
         backgroundImage: `url('/images/background.jpg')`,
@@ -17,6 +25,7 @@ const Layout = ({
     >
       {children}
     </div>
+    </SnackbarProvider>
   );
 };
 

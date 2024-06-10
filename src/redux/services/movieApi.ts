@@ -29,7 +29,7 @@ export const getPopularMovies = async () => {
 
 export const getMovieSearch = async (query: string) => {
   const cacheKey = `searchMovies_${query}`;
-  return await fetchDataWithCache("search/movie", cacheKey);
+  return await fetchDataWithCache(`search/movie?query=${encodeURIComponent(query)}`, cacheKey);
 };
 
 export const getMovieById = async (id: number) => {
@@ -50,4 +50,9 @@ export const getMoviesByGenre = async (genreId: number) => {
 export const getMovieGenres = async () => {
   const cacheKey = "movieGenres";
   return await fetchDataWithCache("genre/movie/list", cacheKey);
+};
+
+export const getMovieVideos = async (id: number) => {
+  const cacheKey = `movieVideos_${id}`;
+  return await fetchDataWithCache(`movie/${id}/videos`, cacheKey);
 };

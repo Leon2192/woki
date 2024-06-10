@@ -17,7 +17,7 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
       dispatch(setLoading(true));
       try {
         const response = await getSimilarMovies(movieId);
-        const limitedMovies = response.results.slice(0, 5);
+        const limitedMovies = response.results.slice(0, 4);
         dispatch(setSimilarMovies(limitedMovies));
       } catch (error) {
         dispatch(setError("Error fetching similar movies"));
@@ -37,10 +37,9 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
         {similarMovies.map((movie: TMovie) => (
           <div
             key={movie.id}
-            className="w-full sm:w-1/2 md:w-1/5 lg:w-1/5 xl:w-1/6"
-            style={{ margin: "10px", cursor: "pointer" }}
+            style={{ margin: "10px", flex: "1 1 300px", display: "flex", flexDirection: "column", alignItems: "center" }}
           >
-            <Link href={`/movie/${movie.id}`} passHref> {/* Utiliza el componente Link para el enrutamiento */}
+            <Link href={`/movie/${movie.id}`} passHref>
               <div>
                 <MovieCard
                   movie={movie}

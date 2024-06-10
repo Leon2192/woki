@@ -1,12 +1,13 @@
 import { TMovie } from "@/types/TMovie";
 
 export interface IMediaCard {
-    movie: TMovie;
-    button1Text: string;
-    button1Action: () => void;
-    button2Text: string;
-    button2Action: () => void;
-  }
+  movie: TMovie;
+  button1Text: string;
+  button1Action: () => void;
+  button2Text: string;
+  button2Action: () => void;
+  addToFavorites?: (movie: TMovie) => void;
+}
 
   export interface IMovieState {
     similarMovies: TMovie[];
@@ -41,4 +42,11 @@ export interface IUser {
 export interface IButton {
   icon: React.ReactNode;
   className?: string;
+  color?:string;
+  onClick?: () => void; 
+}
+
+
+export interface ITrailer {
+  [key: number]: string | null;
 }

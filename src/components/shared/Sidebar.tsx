@@ -16,6 +16,8 @@ import { authService } from '@/redux/services/userApi';
 import { handleLogout } from '@/utilities/authUtil';
 import { useRouter } from 'next/navigation';
 import Switcher from '../ui/Switcher';
+import Link from 'next/link';
+import { enqueueSnackbar } from 'notistack';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -33,9 +35,14 @@ export default function Sidebar() {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await handleLogout(dispatch)
-    router.push('/login')
-   }
+    try {
+      await handleLogout(dispatch);
+      enqueueSnackbar('Sesión cerrada correctamente', { variant: 'success' });
+      router.push('/login');
+    } catch (error) {
+      enqueueSnackbar('Error al cerrar sesión', { variant: 'error' });
+    }
+  };
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -112,7 +119,7 @@ export default function Sidebar() {
     
           <Box sx={{ marginTop: 'auto' }}>
             <List>
-            <ListItem key="Profile" disablePadding>
+            <ListItem key="Switcher" disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                    <Switcher />
@@ -142,8 +149,9 @@ export default function Sidebar() {
                   <ListItemText primary="Profile" />
                 </ListItemButton>
               </ListItem>
-              <ListItem key="Account" disablePadding>
-                <ListItemButton>
+              <ListItem key="Favorites" disablePadding>
+               <Link href={'/favorites'}>
+               <ListItemButton>
                   <ListItemIcon>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -160,8 +168,9 @@ export default function Sidebar() {
                       />
                     </svg>
                   </ListItemIcon>
-                  <ListItemText primary="Account" />
+                  <ListItemText primary="Favorites" />
                 </ListItemButton>
+               </Link>
               </ListItem>
               <ListItem key="Logout" disablePadding>
                 <ListItemButton onClick={handleSignOut}>

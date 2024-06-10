@@ -24,7 +24,7 @@ export default function ProductPage() {
         const movieData = await getMovieById(movieId);
         setMovie(movieData);
         setIsLoading(false);
-      } catch (error) {
+      } catch (error: any) {
         setError(error);
         setIsLoading(false);
       }

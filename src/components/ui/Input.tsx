@@ -20,11 +20,13 @@ const Input: React.FC<IAutocompleteInputProps> = ({
   React.useEffect(() => {
     const fetchData = async () => {
       const data = await fetchOptions();
+      console.log("Fetch options data:", data); 
       setOptions(data);
     };
-
+  
     fetchData();
   }, [fetchOptions]);
+  
 
   const getOptionLabel = (option: string | IMovieOption) => {
     if (typeof option === 'string') {

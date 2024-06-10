@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TMovie } from '@/types/TMovie';
+import { ITrailer } from '@/interfaces';
 
 interface MovieState {
   similarMovies: TMovie[];
@@ -10,6 +11,7 @@ interface MovieState {
   loading: boolean;
   error: string | null;
   movieById: { [key: number]: TMovie };
+  trailers?: { [key: number]: string | null }; 
 }
 
 const initialState: MovieState = {
@@ -20,6 +22,7 @@ const initialState: MovieState = {
   loading: true,
   error: null,
   movieById: {},
+  trailers: {}, 
 };
 
 const movieSlice = createSlice({
@@ -57,6 +60,9 @@ const movieSlice = createSlice({
       const { id, movie } = action.payload;
       state.movieById[id] = movie;
     },
+    setTrailers(state, action: PayloadAction<{ [key: number]: string | null }>) {
+      state.trailers = action.payload;
+    },
   },
 });
 
@@ -67,7 +73,8 @@ export const {
   setGenreResults,
   setLoading,
   setError,
-  setMovieById
+  setMovieById,
+  setTrailers,
 } = movieSlice.actions;
 
 export const selectSimilarMovies = (state: RootState) => state.movie.similarMovies;
@@ -76,6 +83,7 @@ export const selectSearchResults = (state: RootState) => state.movie.searchResul
 export const selectGenreResults = (state: RootState) => state.movie.genreResults;
 export const selectLoading = (state: RootState) => state.movie.loading;
 export const selectError = (state: RootState) => state.movie.error;
-export const selectMovieById = (id: number) => (state: RootState) => state.movie.movieById[id];
+export const selectMovieById = (state: RootState, movieId: number) => state.movie.movieById[movieId];
+export const selectTrailers = (state: RootState) => state.movie.trailers || {};
 
 export default movieSlice.reducer;

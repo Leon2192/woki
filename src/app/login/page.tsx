@@ -6,15 +6,18 @@ import { handleGoogleSignIn, handleLogout } from '@/utilities/authUtil';
 import { RootState } from '@/redux/store';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useSnackbar } from 'notistack';
 
 
 const LoginPage = () => {
   const loading = useSelector((state: RootState) => state.auth.isLoading);
   const dispatch = useDispatch();
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogin = async () => {
    await  handleGoogleSignIn(dispatch)
+   enqueueSnackbar('¡Bienvenido!', { variant: 'success' });
    router.push('/home')
   }
 
