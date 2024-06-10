@@ -79,8 +79,8 @@ const MovieSlider = () => {
                   </div>
                 )}
                 <div className="absolute inset-0 flex flex-col justify-center items-start bg-black bg-opacity-50 p-4">
-                  <h2 className="text-white text-4xl font-bold mb-2">{movie.title}</h2>
-                  <h2 className="text-white text-xl font-bold mb-2 w-3/4">{movie.overview}</h2>
+                   <h2 className="text-white text-2xl sm:text-4xl font-bold mb-2">{movie.title}</h2>
+        <h2 className="text-white text-base sm:text-xl font-bold mb-2 w-full">{movie.overview}</h2>
                   <div className="flex justify-around">
                     <Link href={`/movie/${movie.id}`} passHref>
                       <IconButton 
