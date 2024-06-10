@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
     "firebase": "^10.12.2",
+    "inflight": "^1.0.6",
     "next": "14.2.3",
     "notistack": "^3.0.1",
     "react": "^18",
