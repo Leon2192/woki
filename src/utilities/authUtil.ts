@@ -38,9 +38,67 @@ export const logout = async (dispatch: AppDispatch) => {
   }
 };
 
+export const registerWithEmail = async (email: string, password: string, dispatch: AppDispatch) => {
+  dispatch(setLoading(true));
+  dispatch(clearError());
+  try {
+    const user = await authService.registerWithEmail(email, password);
+    dispatch(setUser({
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+    }));
+    console.log('user', user);
+    return user;
+  } catch (error:any) {
+    dispatch(setError(error.message));
+    console.error("Error al registrarse:", error.message);
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const signInWithEmail = async (email: string, password: string, dispatch: AppDispatch) => {
+  dispatch(setLoading(true));
+  dispatch(clearError());
+  try {
+    const user = await authService.signInWithEmail(email, password);
+    dispatch(setUser({
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+    }));
+    console.log('user', user);
+    return user;
+  } catch (error:any) {
+    dispatch(setError(error.message));
+    console.error("Error al iniciar sesión:", error.message);
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
 export const handleGoogleSignIn = async (dispatch: AppDispatch) => {
   try {
     await signInWithGoogle(dispatch);
+  } catch (error:any) {
+    console.error(error.message);
+  }
+};
+
+export const handleEmailSignIn = async (email: string, password: string, dispatch: AppDispatch) => {
+  try {
+    await signInWithEmail(email, password, dispatch);
+  } catch (error:any) {
+    console.error(error.message);
+  }
+};
+
+export const handleRegisterWithEmail = async (email: string, password: string, dispatch: AppDispatch) => {
+  try {
+    await registerWithEmail(email, password, dispatch);
   } catch (error:any) {
     console.error(error.message);
   }
