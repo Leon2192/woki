@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Woki Movies App | Streaming app with TMDB api
 
-## Getting Started
+[DEPLOY 🚀](https://woki.vercel.app/)
+## Esta app
+Permite autentica y registrar usuarios a traves de usuario y password, asimismo  tamnbien a traves de cuentas de Google. Visualizar peliculas que llegan desde los endpoints de TMDB api, navegar hacia su detalle y ver informacion relevante de la pelicula.
+Permite tambien agregar y quitar favoritos de los usuarios, ver peliculas relacionadas y cuenta con  funcionalidad de busqueda.
 
-First, run the development server:
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/Leon2192/woki
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd woki
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run this project, you will need to add the following environment variables to your .env.local file
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`NEXT_PUBLIC_apiKey`
+
+`NEXT_PUBLIC_projectId`
+
+`NEXT_PUBLIC_storageBucket`
+
+`NEXT_PUBLIC_messagingSenderId`
+
+`NEXT_PUBLIC_appId`
+
+`NEXT_PUBLIC_API_DOMAIN`
+
+`NEXT_PUBLIC_API_TOKEN`
+
+
+## Login
+
+![App Screenshot](https://raw.githubusercontent.com/Leon2192/woki/main/public/one.png)
+
+## App
+
+![App Screenshot](https://raw.githubusercontent.com/Leon2192/woki/main/public/2.png)
+
+
+## Authors
+
+- [@Leonardo Manuel Arrieta](https://www.github.com/leon2192)
+
