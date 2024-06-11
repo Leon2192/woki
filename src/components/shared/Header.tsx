@@ -11,16 +11,15 @@ const Header = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "transparent" }}>
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <Link href="/">
             <Image src="/images/logo.png" alt="Logo" width={120} height={40} />
           </Link>
         </div>
-        <div style={{ flexGrow: 1 }}></div>{" "}
-        {/* Este div ocupa el espacio restante */}
-        {user !== null && <Sidebar />}
+        <div style={{ flexGrow: 1 }}></div>
+        <Sidebar />
       </Toolbar>
     </AppBar>
   );

@@ -2,7 +2,6 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import Sidebar from "@/components/shared/Sidebar";
 import Header from "@/components/shared/Header";
 
 const lightTheme = createTheme({
@@ -42,8 +41,7 @@ const CustomThemeProvider = ({
 
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      {/* {user !== null && <Sidebar />} */}
+      {user !== null && <Header />}
       {children}
     </ThemeProvider>
   );
