@@ -1,5 +1,7 @@
 "use client";
 
+import MovieSlider from "@/components/ui/MovieSlider";
+import ProtectedRoute from "@/utilities/routesUtil";
 import { SnackbarProvider } from "notistack";
 
 export default function RootLayout({
@@ -8,6 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ProtectedRoute>
     <SnackbarProvider
       maxSnack={3}
       anchorOrigin={{
@@ -15,7 +18,9 @@ export default function RootLayout({
         horizontal: "right",
       }}
     >
+      <MovieSlider />
       {children}
     </SnackbarProvider>
+    </ProtectedRoute>
   );
 }

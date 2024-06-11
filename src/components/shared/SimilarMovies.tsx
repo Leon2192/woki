@@ -13,6 +13,13 @@ import { getSimilarMovies } from "@/redux/services/movieApi";
 import MovieCard from "@/components/ui/MovieCard";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/redux/store";
+import {
+  addFavorite,
+  removeFavorite,
+  loadFavorites,
+} from "@/redux/features/favoritesSlice";
+import Loader from "../ui/Loader/Loader";
 
 const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const similarMovies = useSelector(selectSimilarMovies);
@@ -20,6 +27,9 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const error = useSelector(selectError);
   const dispatch = useDispatch();
   const router = useRouter();
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
 
   useEffect(() => {
     const fetchSimilarMovies = async () => {
@@ -36,7 +46,16 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
     fetchSimilarMovies();
   }, [dispatch, movieId]);
 
-  if (loading) return <p>Loading...</p>;
+  const toggleFavorite = (movie: TMovie) => {
+    const isFavorite = favorites.some((fav) => fav.id === movie.id);
+    if (isFavorite) {
+      dispatch(removeFavorite(movie.id));
+    } else {
+      dispatch(addFavorite(movie));
+    }
+  };
+
+  if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
   return (
@@ -61,6 +80,7 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
                   button1Action={() => router.push(`/movie/${movie.id}`)}
                   button2Text="Button 2 Text"
                   button2Action={() => {}}
+                  addToFavorites={() => toggleFavorite(movie)}
                 />
               </div>
           </div>

@@ -1,11 +1,8 @@
 import React from "react";
-// import { useRouter } from "next/router";
 import ProductPage from "./[...id]/page";
 
 
 const MoviePage = () => {
-  // const router = useRouter();
-  // const { id } = router.query;
 
   return (
     <div>

@@ -18,6 +18,7 @@ import {
   loadFavorites,
 } from "@/redux/features/favoritesSlice";
 import { RootState } from "@/redux/store";
+import Loader from "../ui/Loader/Loader";
 
 const AllMovies: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,7 +74,7 @@ const AllMovies: React.FC = () => {
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
-        {loading && <p>Loading...</p>}
+        {loading && <Loader />}
         {error && <p>{error}</p>}
         {currentMovies.map((movie: TMovie) => (
           <div

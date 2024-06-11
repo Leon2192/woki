@@ -1,22 +1,10 @@
-"use client";
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import React from 'react'
+import LoginPage from './login/page'
 
-const IndexPage = () => {
-  const router = useRouter();
-  const user = useSelector((state: RootState) => state.auth.user);
+const page = () => {
+  return (
+    <LoginPage />
+  )
+}
 
-  useEffect(() => {
-    if (user !== null) {
-      router.push('/home');
-    } else {
-      router.push('/login');
-    }
-  }, [user, router]);
-
-  return null;
-};
-
-export default IndexPage;
+export default page

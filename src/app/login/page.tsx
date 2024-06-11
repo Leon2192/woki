@@ -18,6 +18,7 @@ import { RootState } from "@/redux/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
+import Loader from "@/components/ui/Loader/Loader";
 
 const LoginPage = () => {
   const loading = useSelector((state: RootState) => state.auth.isLoading);
@@ -197,7 +198,7 @@ const LoginPage = () => {
               }
               sx={{ marginBottom: "1rem" }}
             >
-              {loading ? "Redirecting..." : "Login"}
+              {loading ? <Loader/> : "Login"}
             </Button>
           )}
           {showRegisterButton && (
@@ -224,7 +225,7 @@ const LoginPage = () => {
                 </svg>
               }
             >
-              {loading ? "Registering..." : "Register account"}
+              {loading ? <Loader /> : "Register account"}
             </Button>
           )}
 
@@ -252,7 +253,7 @@ const LoginPage = () => {
             }
             sx={{ marginBottom: "1rem" }}
           >
-            {loading ? "Redirecting..." : "Login with Google"}
+            {loading ? <Loader />: "Login with Google"}
           </Button>
 
           <Typography

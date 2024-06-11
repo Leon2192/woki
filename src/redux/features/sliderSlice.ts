@@ -4,7 +4,7 @@ export const sliderSlice = createSlice({
     name: 'slider',
     initialState: {
         value: 0,
-        length: 3,
+        length: 5,
     },
     reducers: {
         setSliderLength: (state, action) => {

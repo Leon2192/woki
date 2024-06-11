@@ -26,7 +26,6 @@ const FavoritesList = () => {
     const isFavorite = favorites.some((fav: TMovie) => fav.id === movie.id);
     if (isFavorite) {
       dispatch(removeFavorite(movie.id));
-      // Actualizar favoriteMovies después de eliminar un favorito
       setFavoriteMovies(favoriteMovies.filter((fav) => fav.id !== movie.id));
     } else {
       dispatch(addFavorite(movie));

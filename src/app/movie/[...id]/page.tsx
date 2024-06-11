@@ -5,6 +5,9 @@ import MovieDetail from "../../../components/shared/MovieDetail";
 import { useParams } from "next/navigation";
 import SimilarMovies from "@/components/shared/SimilarMovies";
 import { TMovie } from "@/types/TMovie";
+import ProtectedRoute from "@/utilities/routesUtil";
+import { SnackbarProvider } from "notistack";
+import Loader from "@/components/ui/Loader/Loader";
 
 export default function ProductPage() {
   const [movie, setMovie] = useState<TMovie | null>(null);
@@ -33,14 +36,24 @@ export default function ProductPage() {
     fetchMovie();
   }, [movieId]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />
   if (error)
     return <p>Error al obtener el detalle de la película: {error.message}</p>;
 
   return (
-    <div>
+    <ProtectedRoute>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+    >
+      <div>
       <MovieDetail movie={movie} />
       <SimilarMovies movieId={movieId} />
     </div>
+    </SnackbarProvider>
+    </ProtectedRoute>
   );
 }

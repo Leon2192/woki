@@ -138,6 +138,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem key="Profile" disablePadding>
+              <Link href={"/profile"}>
               <ListItemButton>
                 <ListItemIcon>
                   <svg
@@ -157,6 +158,7 @@ export default function Sidebar() {
                 </ListItemIcon>
                 <ListItemText primary="Profile" />
               </ListItemButton>
+              </Link>
             </ListItem>
             <ListItem key="Favorites" disablePadding>
               <Link href={"/favorites"}>

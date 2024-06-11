@@ -11,6 +11,7 @@ import {
 import { getMovieSearch } from "@/redux/services/movieApi";
 import { TMovie } from "@/types/TMovie";
 import Input from "../ui/Input";
+import Loader from "../ui/Loader/Loader";
 
 const SearchMovies = () => {
   const [query, setQuery] = useState<string>("");
@@ -72,7 +73,7 @@ const SearchMovies = () => {
           onChange={(value) => setQuery(value)}
         />
       </form>
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p>{error}</p>}
     </div>
   );
