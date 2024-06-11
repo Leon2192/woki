@@ -11,15 +11,11 @@ import {
 import { TMovie } from "@/types/TMovie";
 import { getSimilarMovies } from "@/redux/services/movieApi";
 import MovieCard from "@/components/ui/MovieCard";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux/store";
-import {
-  addFavorite,
-  removeFavorite,
-  loadFavorites,
-} from "@/redux/features/favoritesSlice";
+import { loadFavorites } from "@/redux/features/favoritesSlice";
 import Loader from "../ui/Loader/Loader";
+import { toggleFavorite } from "@/utilities/favoritesUtil";
 
 const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const similarMovies = useSelector(selectSimilarMovies);
@@ -40,19 +36,16 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
         dispatch(setSimilarMovies(limitedMovies));
       } catch (error) {
         dispatch(setError("Error fetching similar movies"));
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 
     fetchSimilarMovies();
   }, [dispatch, movieId]);
 
-  const toggleFavorite = (movie: TMovie) => {
-    const isFavorite = favorites.some((fav) => fav.id === movie.id);
-    if (isFavorite) {
-      dispatch(removeFavorite(movie.id));
-    } else {
-      dispatch(addFavorite(movie));
-    }
+  const handleToggleFavorite = (movie: TMovie) => {
+    toggleFavorite(movie, favorites, dispatch);
   };
 
   if (loading) return <Loader />;
@@ -61,31 +54,33 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
   return (
     <div>
       <h2 className="font-bold text-3xl p-2">SIMILAR MOVIES</h2>
-      <div className="flex flex-wrap">
-        {similarMovies.map((movie: TMovie) => (
-          <div
-            key={movie.id}
-            style={{
-              margin: "10px",
-              flex: "1 1 300px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-              <div>
-                <MovieCard
-                  movie={movie}
-                  button1Text="Button 1 Text"
-                  button1Action={() => router.push(`/movie/${movie.id}`)}
-                  button2Text="Button 2 Text"
-                  button2Action={() => {}}
-                  addToFavorites={() => toggleFavorite(movie)}
-                />
-              </div>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="flex flex-wrap">
+          {similarMovies.map((movie: TMovie) => (
+            <div
+              key={movie.id}
+              style={{
+                margin: "10px",
+                flex: "1 1 300px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <MovieCard
+                movie={movie}
+                button1Text="Button 1 Text"
+                button1Action={() => router.push(`/movie/${movie.id}`)}
+                button2Text="Button 2 Text"
+                button2Action={() => {}}
+                addToFavorites={() => handleToggleFavorite(movie)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

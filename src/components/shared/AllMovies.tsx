@@ -12,13 +12,10 @@ import { getPopularMovies } from "@/redux/services/movieApi";
 import MovieCard from "../ui/MovieCard";
 import { TMovie } from "@/types/TMovie";
 import { useRouter } from "next/navigation";
-import {
-  addFavorite,
-  removeFavorite,
-  loadFavorites,
-} from "@/redux/features/favoritesSlice";
+import { loadFavorites } from "@/redux/features/favoritesSlice";
 import { RootState } from "@/redux/store";
 import Loader from "../ui/Loader/Loader";
+import { toggleFavorite } from "../../utilities/favoritesUtil";
 
 const AllMovies: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +40,8 @@ const AllMovies: React.FC = () => {
         dispatch(setPopularMovies(popularMoviesResponse.results));
       } catch (error) {
         dispatch(setError("Error fetching data"));
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 
@@ -59,46 +58,45 @@ const AllMovies: React.FC = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const toggleFavorite = (movie: TMovie) => {
-    const isFavorite = favorites.some((fav) => fav.id === movie.id);
-    if (isFavorite) {
-      dispatch(removeFavorite(movie.id));
-    } else {
-      dispatch(addFavorite(movie));
-    }
-  };
-
   return (
     <div className="p-2">
       <h2 className="text-3xl font-bold p-2">POPULAR MOVIES</h2>
-      <div
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-      >
-        {loading && <Loader />}
-        {error && <p>{error}</p>}
-        {currentMovies.map((movie: TMovie) => (
-          <div
-            key={movie.id}
-            style={{
-              margin: "10px",
-              flex: "1 1 300px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <MovieCard
-              movie={movie}
-              button1Text="Share"
-              button1Action={() => router.push(`/movie/${movie.id}`)}
-              button2Text="Learn More"
-              button2Action={() => {}}
-              addToFavorites={() => toggleFavorite(movie)}
-            />
-          </div>
-        ))}
-      </div>
-
+      {loading ? (
+        <Loader />
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {error && <p>{error}</p>}
+          {currentMovies.map((movie: TMovie) => (
+            <div
+              key={movie.id}
+              style={{
+                margin: "10px",
+                flex: "1 1 300px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <MovieCard
+                movie={movie}
+                button1Text="Share"
+                button1Action={() => router.push(`/movie/${movie.id}`)}
+                button2Text="Learn More"
+                button2Action={() => {}}
+                addToFavorites={() =>
+                  toggleFavorite(movie, favorites, dispatch)
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
       <div className="flex justify-around">
         {currentPage > 1 && (
           <button

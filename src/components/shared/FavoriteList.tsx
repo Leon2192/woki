@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { TMovie } from "@/types/TMovie";
 import MovieCard from "../ui/MovieCard";
 import { RootState } from "@/redux/store";
-import { addFavorite, removeFavorite } from "@/redux/features/favoritesSlice";
 import { useRouter } from "next/navigation";
+import { toggleFavorite } from "@/utilities/favoritesUtil";
 
 const FavoritesList = () => {
   const [favoriteMovies, setFavoriteMovies] = useState<TMovie[]>([]);
@@ -15,20 +15,19 @@ const FavoritesList = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const favorites = localStorage.getItem("favorites");
-    if (favorites) {
-      const parsedFavorites: TMovie[] = JSON.parse(favorites);
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      const parsedFavorites: TMovie[] = JSON.parse(storedFavorites);
       setFavoriteMovies(parsedFavorites);
     }
   }, []);
 
-  const toggleFavorite = (movie: TMovie) => {
-    const isFavorite = favorites.some((fav: TMovie) => fav.id === movie.id);
-    if (isFavorite) {
-      dispatch(removeFavorite(movie.id));
+  const handleToggleFavorite = (movie: TMovie) => {
+    const isFavorite = toggleFavorite(movie, favorites, dispatch);
+    if (!isFavorite) {
       setFavoriteMovies(favoriteMovies.filter((fav) => fav.id !== movie.id));
     } else {
-      dispatch(addFavorite(movie));
+      setFavoriteMovies([...favoriteMovies, movie]);
     }
   };
 
@@ -49,7 +48,7 @@ const FavoritesList = () => {
                 button1Action={() => router.push(`/movie/${movie.id}`)}
                 button2Text="Learn More"
                 button2Action={() => {}}
-                addToFavorites={() => toggleFavorite(movie)}
+                addToFavorites={() => handleToggleFavorite(movie)}
               />
             </div>
           ))}
