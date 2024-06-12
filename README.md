@@ -2,7 +2,7 @@
 
 [DEPLOY 🚀](https://woki.vercel.app/)
 ## Esta app
-Permite autentica y registrar usuarios a traves de usuario y password, asimismo  tamnbien a traves de cuentas de Google. Visualizar peliculas que llegan desde los endpoints de TMDB api, navegar hacia su detalle y ver informacion relevante de la pelicula.
+Permite autenticar y registrar usuarios a traves de usuario y password, asimismo  tamnbien a traves de cuentas de Google. Visualizar peliculas que llegan desde los endpoints de TMDB api, navegar hacia su detalle y ver informacion relevante de la pelicula.
 Permite tambien agregar y quitar favoritos de los usuarios, ver peliculas relacionadas y cuenta con  funcionalidad de busqueda.
 
 
