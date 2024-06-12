@@ -44,6 +44,11 @@ export default function Sidebar() {
     }
   };
 
+  const handleCloseSidebar = (anchor: Anchor) => {
+    setState({ ...state, [anchor]: false });
+  };
+  
+
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -139,7 +144,7 @@ export default function Sidebar() {
 
             <ListItem key="Profile" disablePadding>
               <Link href={"/profile"}>
-                <ListItemButton>
+                <ListItemButton onClick={() => handleCloseSidebar("right")}>
                   <ListItemIcon>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +167,7 @@ export default function Sidebar() {
             </ListItem>
             <ListItem key="Favorites" disablePadding>
               <Link href={"/favorites"}>
-                <ListItemButton>
+                <ListItemButton onClick={() => handleCloseSidebar("right")}>
                   <ListItemIcon>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

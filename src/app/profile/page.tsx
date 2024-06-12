@@ -10,7 +10,7 @@ const Page = () => {
 
   if (user !== null) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", marginTop:'2rem' }} >
         <div
           style={{
             display: "flex",

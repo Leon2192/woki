@@ -11,7 +11,7 @@ export default function Layout(
  
   return (
    <ProtectedRoute>
-     <MovieSlider />
+     {/* <MovieSlider /> */}
       {children}
     </ProtectedRoute>
     
