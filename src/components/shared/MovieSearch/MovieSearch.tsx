@@ -10,8 +10,8 @@ import {
 } from "@/redux/features/movieSlice";
 import { getMovieSearch } from "@/redux/services/movieApi";
 import { TMovie } from "@/types";
-import Input from "../ui/Input";
-import Loader from "../ui/Loader/Loader";
+import Input from "../../ui/Input/Input";
+import Loader from "../../ui/Loader/Loader";
 
 const SearchMovies = () => {
   const [query, setQuery] = useState<string>("");

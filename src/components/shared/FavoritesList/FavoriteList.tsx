@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TMovie } from "@/types";
-import MovieCard from "../ui/MovieCard";
+import MovieCard from "../../ui/MovieCard/MovieCard";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { toggleFavorite } from "@/utilities/favoritesUtil";
@@ -63,7 +63,7 @@ const FavoritesList = () => {
       <h2 className="text-5xl font-bold mb-4 p-4">Your Favorite Movies</h2>
       {favoriteMovies.length === 0 ? (
         <h1 className="text-center text-4xl">
-          You dont have any favorites added yet.
+          No tienes favoritos agregados aún.
         </h1>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

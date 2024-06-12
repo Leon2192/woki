@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getMovieById } from "@/redux/services/movieApi";
-import MovieDetail from "../../../components/shared/MovieDetail";
+import MovieDetail from "../../../components/shared/MovieDetail/MovieDetail";
 import { useParams } from "next/navigation";
-import SimilarMovies from "@/components/shared/SimilarMovies";
+import SimilarMovies from "@/components/shared/SimilarMoviesList/SimilarMovies";
 import { TMovie } from "@/types";
 import ProtectedRoute from "@/utilities/routesUtil";
 import Loader from "@/components/ui/Loader/Loader";

@@ -40,7 +40,7 @@ const MovieDetail: React.FC<Props> = ({ movie }) => {
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
+            stroke="red" 
             className="size-6"
           >
             <path

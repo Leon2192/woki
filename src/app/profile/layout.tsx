@@ -1,19 +1,9 @@
-import MovieSlider from '@/components/ui/MovieSlider';
-import ProtectedRoute from '@/utilities/routesUtil';
+import ProtectedRoute from "@/utilities/routesUtil";
 
-export default function Layout(
-    {
-        children,
-      }: Readonly<{
-        children: React.ReactNode;
-      }>
-) {
- 
-  return (
-   <ProtectedRoute>
-     {/* <MovieSlider /> */}
-      {children}
-    </ProtectedRoute>
-    
-  );
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <ProtectedRoute>{children}</ProtectedRoute>;
 }

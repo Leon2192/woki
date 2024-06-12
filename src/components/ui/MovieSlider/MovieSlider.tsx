@@ -5,7 +5,7 @@ import { nextSlide, prevSlide } from "@/redux/features/sliderSlice";
 import { getPopularMovies, getMovieVideos } from "@/redux/services/movieApi";
 import { RootState } from "@/redux/store";
 import Link from "next/link";
-import IconButton from "./IconButton";
+import IconButton from "../Buttons/IconButton";
 import {
   selectPopularMovies,
   setPopularMovies,

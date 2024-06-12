@@ -10,11 +10,11 @@ import {
 } from "@/redux/features/movieSlice";
 import { TMovie } from "@/types";
 import { getMovieVideos, getSimilarMovies } from "@/redux/services/movieApi";
-import MovieCard from "@/components/ui/MovieCard";
+import MovieCard from "@/components/ui/MovieCard/MovieCard";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux/store";
 import { loadFavorites } from "@/redux/features/favoritesSlice";
-import Loader from "../ui/Loader/Loader";
+import Loader from "../../ui/Loader/Loader";
 import { toggleFavorite } from "@/utilities/favoritesUtil";
 import { enqueueSnackbar } from "notistack";
 

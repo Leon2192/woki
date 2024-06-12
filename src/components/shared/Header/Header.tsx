@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Header = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -13,9 +13,9 @@ const Header = () => {
   return (
     <AppBar position="static" style={{ backgroundColor: "transparent" }}>
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
+        <div className="p-5">
           <Link href="/">
-            <Image src="/images/logo.png" alt="Logo" width={120} height={40} />
+            <Image src="/images/logo.png" alt="Logo" width={100} height={40} />
           </Link>
         </div>
         <div style={{ flexGrow: 1 }}></div>

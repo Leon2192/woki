@@ -9,21 +9,21 @@ import {
   setError,
 } from "@/redux/features/movieSlice";
 import { getPopularMovies, getMovieVideos } from "@/redux/services/movieApi";
-import MovieCard from "../ui/MovieCard";
+import MovieCard from "@/components/ui/MovieCard/MovieCard";
 import { TMovie } from "@/types";
 import { useRouter } from "next/navigation";
 import { loadFavorites } from "@/redux/features/favoritesSlice";
 import { RootState } from "@/redux/store";
-import Loader from "../ui/Loader/Loader";
-import { toggleFavorite } from "../../utilities/favoritesUtil";
-import ModalTrailer from "../ui/ModalTrailer/ModalTrailer";
+import Loader from "@/components/ui/Loader/Loader";
+import { toggleFavorite } from "@/utilities/favoritesUtil";
+import ModalTrailer from "@/components/ui/ModalTrailer/ModalTrailer";
 import { enqueueSnackbar } from "notistack";
 
 const AllMovies: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(4);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [trailerId, setTrailerId] = useState(""); // Cambiar a trailerId
+  const [trailerId, setTrailerId] = useState("");
 
   const popularMovies = useSelector((state: RootState) =>
     selectPopularMovies(state)
@@ -60,7 +60,7 @@ const AllMovies: React.FC = () => {
         (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
       );
       if (trailer) {
-        setTrailerId(trailer.key); 
+        setTrailerId(trailer.key);
         setIsModalOpen(true);
       } else {
         enqueueSnackbar("Trailer not available", { variant: "error" });
@@ -73,7 +73,7 @@ const AllMovies: React.FC = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTrailerId(""); 
+    setTrailerId("");
   };
 
   const indexOfLastMovie = currentPage * moviesPerPage;
@@ -169,7 +169,7 @@ const AllMovies: React.FC = () => {
         )}
       </div>
       <ModalTrailer
-        videoId={trailerId} 
+        videoId={trailerId}
         open={isModalOpen}
         onClose={handleCloseModal}
       />

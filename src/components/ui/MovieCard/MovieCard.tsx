@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { TMovie } from '@/types';
 import { IMediaCard } from '@/interfaces';
-import Button from './Button';
+import Button from '../Buttons/Button';
 
 const MovieCard: React.FC<IMediaCard> = ({
   movie,

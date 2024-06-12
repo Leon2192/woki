@@ -2,7 +2,7 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import Header from "@/components/shared/Header";
+import Header from "@/components/shared/Header/Header";
 
 const lightTheme = createTheme({
   palette: {

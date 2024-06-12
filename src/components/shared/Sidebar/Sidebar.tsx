@@ -8,13 +8,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SearchMovies from "./MovieSearch";
+import SearchMovies from "../MovieSearch/MovieSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { RootState } from "@/redux/store";
 import { handleLogout } from "@/utilities/authUtil";
 import { useRouter } from "next/navigation";
-import Switcher from "../ui/Switcher";
+import Switcher from "../../ui/Switcher/Switcher";
 import Link from "next/link";
 import { enqueueSnackbar } from "notistack";
 
