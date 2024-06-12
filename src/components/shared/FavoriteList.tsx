@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import MovieCard from "../ui/MovieCard";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";

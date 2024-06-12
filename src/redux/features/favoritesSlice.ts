@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TMovie } from '@/types/TMovie';
+import { TMovie } from '@/types';
 import { enqueueSnackbar } from 'notistack';
 
 interface FavoritesState {

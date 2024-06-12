@@ -1,5 +1,5 @@
 import React from "react";
-import ProductPage from "./[...id]/page";
+import MovieDetailPage from "./[...id]/page";
 
 
 const MoviePage = () => {
@@ -7,7 +7,7 @@ const MoviePage = () => {
   return (
     <div>
       <h1>Movie Page</h1>
-      <ProductPage />
+      <MovieDetailPage />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import Link from "next/link";
 
 interface Props {

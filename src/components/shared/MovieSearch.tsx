@@ -9,7 +9,7 @@ import {
   setError,
 } from "@/redux/features/movieSlice";
 import { getMovieSearch } from "@/redux/services/movieApi";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import Input from "../ui/Input";
 import Loader from "../ui/Loader/Loader";
 

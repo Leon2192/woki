@@ -79,7 +79,7 @@ const MovieSlider = () => {
             <div
               key={index}
               className="w-full flex items-center justify-center"
-              style={{ flex: "0 0 100%", height: "70vh" }}
+              style={{ flex: "0 0 100%", height: "80vh" }}
             >
               <div className="relative w-full h-full">
                 {trailers[movie.id] ? (

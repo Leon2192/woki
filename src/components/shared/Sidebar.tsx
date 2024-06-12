@@ -37,7 +37,7 @@ export default function Sidebar() {
     try {
       await handleLogout(dispatch);
       enqueueSnackbar("Sesión cerrada correctamente", { variant: "success" });
-      router.push("/login");
+      router.push("/");
       setState({ ...state, right: false });
     } catch (error) {
       enqueueSnackbar("Error al cerrar sesión", { variant: "error" });

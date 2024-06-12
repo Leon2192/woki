@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import { addFavorite, removeFavorite } from "@/redux/features/favoritesSlice";
 
 export const toggleFavorite = (

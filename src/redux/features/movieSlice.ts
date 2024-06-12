@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { TMovie } from '@/types/TMovie';
+import { TMovie } from '@/types';
 import { ITrailer } from '@/interfaces';
 
 interface MovieState {

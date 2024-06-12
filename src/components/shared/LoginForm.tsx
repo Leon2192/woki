@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import Loader from "@/components/ui/Loader/Loader";
 
-const LoginPage = () => {
+const LoginForm = () => {
   const loading = useSelector((state: RootState) => state.auth.isLoading);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -34,7 +34,7 @@ const LoginPage = () => {
     try {
       await handleGoogleSignIn(dispatch);
       enqueueSnackbar("¡Bienvenido!", { variant: "success" });
-      router.push("/home");
+      router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
     }
@@ -53,7 +53,7 @@ const LoginPage = () => {
 
       await handleEmailSignIn(email, password, dispatch);
       enqueueSnackbar("¡Bienvenido!", { variant: "success" });
-      router.push("/home");
+      router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
     }
@@ -74,7 +74,7 @@ const LoginPage = () => {
       enqueueSnackbar("¡Registrado exitosamente! A disfrutar tu stream", {
         variant: "success",
       });
-      router.push("/home");
+      router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
     }
@@ -276,4 +276,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginForm;

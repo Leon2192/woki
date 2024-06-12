@@ -4,12 +4,11 @@ import { getMovieById } from "@/redux/services/movieApi";
 import MovieDetail from "../../../components/shared/MovieDetail";
 import { useParams } from "next/navigation";
 import SimilarMovies from "@/components/shared/SimilarMovies";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import ProtectedRoute from "@/utilities/routesUtil";
-import { SnackbarProvider } from "notistack";
 import Loader from "@/components/ui/Loader/Loader";
 
-export default function ProductPage() {
+export default function MovieDetailPage() {
   const [movie, setMovie] = useState<TMovie | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -42,18 +41,10 @@ export default function ProductPage() {
 
   return (
     <ProtectedRoute>
-    <SnackbarProvider
-      maxSnack={3}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-    >
       <div>
       <MovieDetail movie={movie} />
       <SimilarMovies movieId={movieId} />
     </div>
-    </SnackbarProvider>
     </ProtectedRoute>
   );
 }

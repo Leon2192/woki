@@ -10,7 +10,7 @@ import {
 } from "@/redux/features/movieSlice";
 import { getPopularMovies } from "@/redux/services/movieApi";
 import MovieCard from "../ui/MovieCard";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import { useRouter } from "next/navigation";
 import { loadFavorites } from "@/redux/features/favoritesSlice";
 import { RootState } from "@/redux/store";

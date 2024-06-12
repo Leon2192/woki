@@ -8,7 +8,7 @@ import {
   setLoading,
   setError,
 } from "@/redux/features/movieSlice";
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 import { getSimilarMovies } from "@/redux/services/movieApi";
 import MovieCard from "@/components/ui/MovieCard";
 import { useRouter } from "next/navigation";

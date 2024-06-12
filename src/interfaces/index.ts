@@ -1,4 +1,4 @@
-import { TMovie } from "@/types/TMovie";
+import { TMovie } from "@/types";
 
 export interface IMediaCard {
   movie: TMovie;
