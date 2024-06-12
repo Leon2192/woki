@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectSimilarMovies,
@@ -9,13 +9,14 @@ import {
   setError,
 } from "@/redux/features/movieSlice";
 import { TMovie } from "@/types";
-import { getSimilarMovies } from "@/redux/services/movieApi";
+import { getMovieVideos, getSimilarMovies } from "@/redux/services/movieApi";
 import MovieCard from "@/components/ui/MovieCard";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux/store";
 import { loadFavorites } from "@/redux/features/favoritesSlice";
 import Loader from "../ui/Loader/Loader";
 import { toggleFavorite } from "@/utilities/favoritesUtil";
+import { enqueueSnackbar } from "notistack";
 
 const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const similarMovies = useSelector(selectSimilarMovies);
@@ -26,6 +27,32 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
   const favorites = useSelector(
     (state: RootState) => state.favorites.favorites
   );
+
+  const [trailerUrl, setTrailerUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = async (movieId: number) => {
+    try {
+      const videoResponse = await getMovieVideos(movieId);
+      const trailer = videoResponse.results.find(
+        (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+      );
+      if (trailer) {
+        setTrailerUrl(`https://www.youtube.com/embed/${trailer.key}`);
+        setIsModalOpen(true);
+      } else {
+        enqueueSnackbar("Trailer not available", { variant: "error" });
+      }
+    } catch (error) {
+      console.error("Error fetching trailer:", error);
+      enqueueSnackbar("Error fetching trailer", { variant: "error" });
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTrailerUrl("");
+  };
 
   useEffect(() => {
     const fetchSimilarMovies = async () => {
@@ -74,7 +101,7 @@ const SimilarMovies = ({ movieId }: { movieId: number }) => {
                 button1Text="Button 1 Text"
                 button1Action={() => router.push(`/movie/${movie.id}`)}
                 button2Text="Button 2 Text"
-                button2Action={() => {}}
+                button2Action={() => handleOpenModal(movie.id)}
                 addToFavorites={() => handleToggleFavorite(movie)}
               />
             </div>

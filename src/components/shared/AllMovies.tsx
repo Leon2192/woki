@@ -8,7 +8,7 @@ import {
   setLoading,
   setError,
 } from "@/redux/features/movieSlice";
-import { getPopularMovies } from "@/redux/services/movieApi";
+import { getPopularMovies, getMovieVideos } from "@/redux/services/movieApi";
 import MovieCard from "../ui/MovieCard";
 import { TMovie } from "@/types";
 import { useRouter } from "next/navigation";
@@ -16,10 +16,14 @@ import { loadFavorites } from "@/redux/features/favoritesSlice";
 import { RootState } from "@/redux/store";
 import Loader from "../ui/Loader/Loader";
 import { toggleFavorite } from "../../utilities/favoritesUtil";
+import ModalTrailer from "../ui/ModalTrailer/ModalTrailer";
+import { enqueueSnackbar } from "notistack";
 
 const AllMovies: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(4);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [trailerId, setTrailerId] = useState(""); // Cambiar a trailerId
 
   const popularMovies = useSelector((state: RootState) =>
     selectPopularMovies(state)
@@ -48,6 +52,29 @@ const AllMovies: React.FC = () => {
     fetchMovies();
     dispatch(loadFavorites());
   }, [dispatch]);
+
+  const handleOpenModal = async (movieId: number) => {
+    try {
+      const videoResponse = await getMovieVideos(movieId);
+      const trailer = videoResponse.results.find(
+        (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+      );
+      if (trailer) {
+        setTrailerId(trailer.key); 
+        setIsModalOpen(true);
+      } else {
+        enqueueSnackbar("Trailer not available", { variant: "error" });
+      }
+    } catch (error) {
+      console.error("Error fetching trailer:", error);
+      enqueueSnackbar("Error fetching trailer", { variant: "error" });
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTrailerId(""); 
+  };
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -88,7 +115,7 @@ const AllMovies: React.FC = () => {
                 button1Text="Share"
                 button1Action={() => router.push(`/movie/${movie.id}`)}
                 button2Text="Learn More"
-                button2Action={() => {}}
+                button2Action={() => handleOpenModal(movie.id)}
                 addToFavorites={() =>
                   toggleFavorite(movie, favorites, dispatch)
                 }
@@ -141,6 +168,11 @@ const AllMovies: React.FC = () => {
           </button>
         )}
       </div>
+      <ModalTrailer
+        videoId={trailerId} 
+        open={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

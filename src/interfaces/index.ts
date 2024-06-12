@@ -5,7 +5,7 @@ export interface IMediaCard {
   button1Text: string;
   button1Action: () => void;
   button2Text: string;
-  button2Action: () => void;
+  button2Action: (id: number) => void;
   addToFavorites?: (movie: TMovie) => void;
 }
 
