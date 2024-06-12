@@ -10,14 +10,14 @@ export default function NotFound() {
         <Image src="/images/404.png" alt="404" width={300} height={300} />
       </div>
       <h2 className="text-3xl font-semibold text-center mb-2">
-        Ups, parece que el enlace no se encontro!
+        Oops, it looks like the link was not found!
       </h2>
       <p className="text-lg text-center mb-6">
-        Pero no te preocupes, puedes volver a intentar.
+        But dont worry, you can try again.
       </p>
       <Link href="/">
         <button className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white py-3 px-6 rounded-lg text-lg">
-          Inicio
+          Home
         </button>
       </Link>
     </main>

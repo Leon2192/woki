@@ -1,4 +1,9 @@
-import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithPopup,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase/firebaseConfig";
 
 export const authService = {
@@ -6,25 +11,26 @@ export const authService = {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       return result.user;
-    } catch (error:any) {
-      console.error("Error al iniciar sesión con Google:", error.message);
+    } catch (error: any) {
       throw error;
     }
   },
   signOut: async () => {
     try {
       await signOut(auth);
-    } catch (error:any) {
-      console.error("Error al cerrar sesión:", error.message);
+    } catch (error: any) {
       throw error;
     }
   },
   registerWithEmail: async (email: string, password: string) => {
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       return result.user;
-    } catch (error:any) {
-      console.error("Error al registrarse:", error.message);
+    } catch (error: any) {
       throw error;
     }
   },
@@ -32,9 +38,8 @@ export const authService = {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
       return result.user;
-    } catch (error:any) {
-      console.error("Error al iniciar sesión:", error.message);
+    } catch (error: any) {
       throw error;
     }
-  }
+  },
 };

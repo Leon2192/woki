@@ -36,18 +36,17 @@ export default function Sidebar() {
   const handleSignOut = async () => {
     try {
       await handleLogout(dispatch);
-      enqueueSnackbar("Sesión cerrada correctamente", { variant: "success" });
+      enqueueSnackbar("Logged out successfully.", { variant: "success" });
       router.push("/");
       setState({ ...state, right: false });
     } catch (error) {
-      enqueueSnackbar("Error al cerrar sesión", { variant: "error" });
+      enqueueSnackbar("Error logging out:", { variant: "error" });
     }
   };
 
   const handleCloseSidebar = (anchor: Anchor) => {
     setState({ ...state, [anchor]: false });
   };
-  
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>

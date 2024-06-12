@@ -43,16 +43,16 @@ const LoginForm = () => {
   const handleEmailLogin = async () => {
     try {
       if (!email.trim() || !password.trim()) {
-        throw new Error("Por favor, completa todos los campos.");
+        throw new Error("Please fill in all the fields.");
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        throw new Error("Por favor, introduce un correo electrónico válido.");
+        throw new Error("Please enter a valid email address.");
       }
 
       await handleEmailSignIn(email, password, dispatch);
-      enqueueSnackbar("¡Bienvenido!", { variant: "success" });
+      enqueueSnackbar("Welcome!", { variant: "success" });
       router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
@@ -62,16 +62,16 @@ const LoginForm = () => {
   const handleRegister = async () => {
     try {
       if (!email.trim() || !password.trim()) {
-        throw new Error("Por favor, completa todos los campos.");
+        throw new Error("Please fill in all the fields.");
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        throw new Error("Por favor, introduce un correo electrónico válido.");
+        throw new Error("Please enter a valid email address.");
       }
 
       await handleRegisterWithEmail(email, password, dispatch);
-      enqueueSnackbar("¡Registrado exitosamente! A disfrutar tu stream", {
+      enqueueSnackbar("Successfully registered! Enjoy your stream.", {
         variant: "success",
       });
       router.push("/");

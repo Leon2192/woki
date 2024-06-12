@@ -35,16 +35,15 @@ export default function MovieDetailPage() {
     fetchMovie();
   }, [movieId]);
 
-  if (isLoading) return <Loader />
-  if (error)
-    return <p>Error al obtener el detalle de la película: {error.message}</p>;
+  if (isLoading) return <Loader />;
+  if (error) return <p>Error fetching the movie details.: {error.message}</p>;
 
   return (
     <ProtectedRoute>
       <div>
-      <MovieDetail movie={movie} />
-      <SimilarMovies movieId={movieId} />
-    </div>
+        <MovieDetail movie={movie} />
+        <SimilarMovies movieId={movieId} />
+      </div>
     </ProtectedRoute>
   );
 }

@@ -41,7 +41,6 @@ const FavoritesList = () => {
     setTrailerUrl("");
   };
 
-
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
     if (storedFavorites) {
@@ -64,7 +63,7 @@ const FavoritesList = () => {
       <h2 className="text-5xl font-bold mb-4 p-4">Your Favorite Movies</h2>
       {favoriteMovies.length === 0 ? (
         <h1 className="text-center text-4xl">
-          No tienes favoritos agregados aún.
+          You dont have any favorites added yet.
         </h1>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
