@@ -39,6 +39,8 @@ To run this project, you will need to add the following environment variables to
 
 `NEXT_PUBLIC_apiKey`
 
+`NEXT_PUBLIC_authDomain`
+
 `NEXT_PUBLIC_projectId`
 
 `NEXT_PUBLIC_storageBucket`
