@@ -111,9 +111,11 @@ export const handleEmailSignIn = async (
   dispatch: AppDispatch
 ) => {
   try {
-    await signInWithEmail(email, password, dispatch);
+    const user = await signInWithEmail(email, password, dispatch);
+    return user;
   } catch (error: any) {
     console.error(error.message);
+    throw error;
   }
 };
 
