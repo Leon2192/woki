@@ -16,7 +16,11 @@ const HomePage = () => {
   }, [dispatch]);
 
   if (!user) {
-    return <LoginForm />;
+    return (
+      <div className="h-screen">
+        <LoginForm />
+      </div>
+    );
   }
 
   return (
