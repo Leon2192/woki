@@ -29,11 +29,12 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegisterButton, setShowRegisterButton] = useState(false);
+  const currentUser = useSelector((state: RootState) => state.auth.user);
 
   const handleGoogleLogin = async () => {
     try {
       await handleGoogleSignIn(dispatch);
-      enqueueSnackbar("¡Bienvenido!", { variant: "success" });
+      enqueueSnackbar("Welcome!", { variant: "success" });
       router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
@@ -52,7 +53,13 @@ const LoginForm = () => {
       }
 
       await handleEmailSignIn(email, password, dispatch);
-      enqueueSnackbar("Welcome!", { variant: "success" });
+
+      if (currentUser) {
+        enqueueSnackbar("Welcome!", { variant: "success" });
+        router.push("/");
+      } else {
+        enqueueSnackbar(`User not found.`, { variant: "error" });
+      }
       router.push("/");
     } catch (error: any) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
